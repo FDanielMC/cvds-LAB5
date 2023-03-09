@@ -17,13 +17,27 @@ public class GuessBean implements Serializable {
 	private int numberToGuess;
 	private int guessesMade;
 	private int prize;
+	private int guess;
 	private String gameState;
 
 	public GuessBean() {
 		restart();
 	}
 
+	public void setNumberToGuess(int numberToGuess) {
+		this.numberToGuess = numberToGuess;
+	}
+
+	public void setGuessesMade(int guessesMade) {
+		this.guessesMade = guessesMade;
+	}
+
+	public void setGameState(String gameState) {
+		this.gameState = gameState;
+	}
+
 	public int getNumberToGuess() {
+		System.out.println("getNumberToGuess");
 		return numberToGuess;
 	}
 
@@ -39,14 +53,26 @@ public class GuessBean implements Serializable {
 		return gameState;
 	}
 
-	public void guess(int guess) {
+	public void guess() {
 		guessesMade++;
 
-		if (guess == numberToGuess) {
+		if (this.guess == numberToGuess) {
 			gameState = "Ganaste el premio de " + prize + "!";
 		} else {
 			gameState = "Fallaste. Sigue intentando.";
 		}
+	}
+
+	public int getGuess() {
+		return guess;
+	}
+
+	public void setGuess(int guess) {
+		this.guess = guess;
+	}
+
+	public void setPrize(int prize) {
+		this.prize = prize;
 	}
 
 	public void restart() {
