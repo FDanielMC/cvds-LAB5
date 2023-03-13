@@ -7,14 +7,21 @@
    </h:head>
    <h:body>
       <h:form id="guess_form">
-         <p:outputLabel value="Número a adivinar: " style="display: none;" />
+         <p:outputLabel value="Número a adivinar: "/>
          <p:outputLabel value="Intenta adivinar un número entre 1 y 10:" />
-         <p:inputText id="guess" value="#{guessBean.guess}" />
+         <p:inputText id="guess" value="#{guessBean.guessNumber}" />
          <p:commandButton value="Adivinar" update="guess_form" actionListener="#{guessBean.guess}" />
          <p:commandButton value="Reiniciar" update="guess_form" actionListener="#{guessBean.restart}" />
          <p:outputLabel value="Número de intentos: #{guessBean.guessesMade}" />
          <p:outputLabel value="Estado del juego: #{guessBean.gameState}" />
          <p:outputLabel value="Premio acumulado: $#{guessBean.prize}" />
+         <div class="card"> 
+            <p:dataTable var="lista" value="#{guessBean.lista}">
+                <p:column headerText="Intentos">
+                    <h:outputText value="#{lista}" />
+                </p:column>
+            </p:dataTable>
+        </div>
       </h:form>
    </h:body>
 </html>

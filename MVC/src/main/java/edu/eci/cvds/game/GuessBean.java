@@ -1,6 +1,7 @@
 package edu.eci.cvds.game;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.faces.bean.ApplicationScoped;
@@ -8,19 +9,20 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean(name = "guessBean")
 @ApplicationScoped
-public class GuessBean implements Serializable {
+public class GuessBean {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private int numberToGuess;
 	private int guessesMade;
 	private int prize;
-	private int guess;
+	private int guessNumber;
 	private String gameState;
+	private List<Integer> lista;
 
 	public GuessBean() {
+		lista = new ArrayList<Integer>();
 		restart();
 	}
 
@@ -55,20 +57,31 @@ public class GuessBean implements Serializable {
 
 	public void guess() {
 		guessesMade++;
-
-		if (this.guess == numberToGuess) {
+		lista.add(guessNumber);
+		if (this.guessNumber == numberToGuess) {
 			gameState = "Ganaste el premio de " + prize + "!";
 		} else {
-			gameState = "Fallaste. Sigue intentando.";
+			if (prize >= 10000 && !gameState.contains("Ganaste el premio de ")) {
+				gameState = "Fallaste. Sigue intentando.";
+				prize -= 10000;
+			}
 		}
 	}
 
-	public int getGuess() {
-		return guess;
+	public List<Integer> getLista() {
+		return lista;
 	}
 
-	public void setGuess(int guess) {
-		this.guess = guess;
+	public void setLista(List<Integer> lista) {
+		this.lista = lista;
+	}
+
+	public int getGuessNumber() {
+		return guessNumber;
+	}
+
+	public void setGuessNumber(int guessNumber) {
+		this.guessNumber = guessNumber;
 	}
 
 	public void setPrize(int prize) {
@@ -79,7 +92,7 @@ public class GuessBean implements Serializable {
 		Random random = new Random();
 		numberToGuess = random.nextInt(10) + 1;
 		guessesMade = 0;
-		prize = 100;
+		prize = 100000;
 		gameState = "Intente adivinar un número entre 1 y 10.";
 	}
 
